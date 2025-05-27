@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Detalle de Evento - EcoSostenible</title>
+    <link rel="stylesheet" href="styles/styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+
+<body>
+    <!-- Contenido principal -->
+    <main>
+        <!-- Banner del evento -->
+        <section class="event-banner">
+            <div class="event-banner-image">
+                <img src="https://placehold.co/1200x400/e9f5e9/1a7a1a?text=Conferencia+Energías+Renovables"
+                    alt="Conferencia sobre Energías Renovables">
+                <div class="event-banner-overlay">
+                    <div class="container">
+                        <a href="eventos.html" class="btn btn-outline btn-sm">
+                            <i class="fas fa-arrow-left"></i> Volver a eventos
+                        </a>
+                        <span class="event-category-badge">Conferencia</span>
+                        <h1 id="eventTitle">Conferencia sobre Energías Renovables</h1>
+                        <div class="event-banner-details">
+                            <div class="event-detail">
+                                <i class="fas fa-calendar"></i>
+                                <span id="eventDate">15 de Junio, 2025</span>
+                            </div>
+                            <div class="event-detail">
+                                <i class="fas fa-clock"></i>
+                                <span id="eventTime">10:00 - 14:00</span>
+                            </div>
+                            <div class="event-detail">
+                                <i class="fas fa-map-marker-alt"></i>
+                                <span id="eventLocation">Centro de Convenciones Eco, Madrid</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Contenido del evento -->
+        <section class="event-content-section">
+            <div class="container">
+                <div class="event-content-grid">
+                    <!-- Columna principal -->
+                    <div class="event-main-column">
+                        <!-- Contenido de las tabs -->
+                        <div class="event-tab-content">
+                            <!-- Tab de información -->
+                            <div class="event-description">+
+                                <h2>Descripción del evento</h2>
+                                <p id="eventDescription">Esta conferencia reúne a los principales expertos
+                                    internacionales en el campo de las energías renovables para presentar las últimas
+                                    innovaciones y avances tecnológicos. Durante la jornada, se abordarán temas como la
+                                    integración de sistemas de energía solar y eólica en entornos urbanos, el
+                                    almacenamiento eficiente de energía y las políticas públicas necesarias para
+                                    impulsar la transición energética.</p>
+                                <p>Los asistentes tendrán la oportunidad de participar en mesas redondas, hacer
+                                    networking con profesionales del sector y conocer de primera mano casos de éxito
+                                    implementados en diferentes ciudades del mundo. Esta conferencia está dirigida tanto
+                                    a profesionales del sector energético como a representantes de administraciones
+                                    públicas, investigadores y estudiantes interesados en la sostenibilidad energética.
+                                </p>
+
+                                <h3>Ubicación</h3>
+                                <div class="event-map">
+                                    <div class="map-placeholder">
+                                        Mapa de ubicación
+                                    </div>
+                                </div>
+                                <p><strong>Dirección:</strong> <span id="eventAddress">Calle Verde 123, 28001
+                                        Madrid</span></p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Columna lateral -->
+                    <div class="event-sidebar">
+                        <!-- Tarjeta de inscripción -->
+                        <div class="sidebar-card">
+                            <h3>Inscríbete al evento</h3>
+                            <p class="availability-info">Quedan <span id="availableSpots">75</span> plazas disponibles
+                                de <span id="totalSpots">150</span></p>
+                            <div class="progress-bar">
+                                <div class="progress-fill" style="width: 50%;"></div>
+                            </div>
+                            <button class="btn btn-primary btn-full">Inscribirse</button>
+                            <div class="action-buttons">
+                                <button class="btn btn-outline btn-sm">
+                                    <i class="fas fa-share-alt"></i> Compartir
+                                </button>
+                            </div>
+                        </div>
+
+                        <!-- Tarjeta del organizador -->
+                        <div class="sidebar-card">
+                            <h3><i class="fas fa-user"></i> Organizador</h3>
+                            <div class="organizer-info">
+                                <img src="https://placehold.co/100x100/e9f5e9/1a7a1a?text=FEV"
+                                    alt="Fundación Energía Verde" class="organizer-logo">
+                                <div>
+                                    <h4 id="organizerName">Fundación Energía Verde</h4>
+                                    <p id="organizerContact">info@energiaverde.org</p>
+                                </div>
+                            </div>
+                            <p id="organizerDescription">Organización sin ánimo de lucro dedicada a la promoción de las
+                                energías renovables y la sostenibilidad.</p>
+                            <button class="btn btn-outline btn-full">Ver perfil del organizador</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <script src="scripts/main.js"></script>
+    <script src="scripts/detalle_evento.js"></script>
+</body>
+
+</html>
