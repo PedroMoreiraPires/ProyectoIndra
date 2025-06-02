@@ -134,6 +134,13 @@ function createModal() {
         <div class="modal-content">
             <span class="close-modal">&times;</span>
             
+            <!-- Recomendaciones de acceso rápido -->
+            <div class="quick-login-hint" style="margin-bottom: 1em; background: #f5f5f5; padding: 10px; border-radius: 6px;">
+                <strong>¿Solo quieres probar?</strong><br>
+                <span>Usuario recomendado: <b>user1</b> / Contraseña: <b>userpass1</b></span><br>
+                <span>Organizador recomendado: <b>org1</b> / Contraseña: <b>orgpass1</b></span>
+            </div>
+
             <!-- Formulario de Login -->
             <form id="loginForm" class="auth-form">
                 <div class="form-group">
@@ -231,8 +238,7 @@ function createModal() {
 // Hardcoded users and session management
 const users = [
     { username: 'user1', password: 'userpass1', role: 'user' },
-    { username: 'org1', password: 'orgpass1', role: 'organizer' },
-    { username: 'org2', password: 'orgpass2', role: 'organizer' }
+    { username: 'org1', password: 'orgpass1', role: 'organizer' }
 ];
 let currentUser = JSON.parse(localStorage.getItem('currentUser'));
 

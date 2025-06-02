@@ -82,5 +82,25 @@ document.addEventListener("DOMContentLoaded", () => {
 
     CAROUSEL.style.userSelect = "none";
 
+    // --- AUTO MOVE CAROUSEL ---
+    const AUTO_MOVE_STEP = 50; // píxeles por movimiento
+    const AUTO_MOVE_INTERVAL = 2500; // milisegundos
+
+    function autoMoveCarousel() {
+        const minOffset = getMinOffset();
+        if (currentOffset > minOffset) {
+            currentOffset -= AUTO_MOVE_STEP;
+            if (currentOffset < minOffset) currentOffset = minOffset;
+            carouselItems.forEach(item => {
+                item.style.transition = "transform 0.5s cubic-bezier(0.4, 0, 0.2, 1)";
+                item.style.transform = `translateX(${currentOffset}px)`;
+            });
+        } else {
+            clearInterval(autoMoveInterval);
+        }
+    }
+
+    const autoMoveInterval = setInterval(autoMoveCarousel, AUTO_MOVE_INTERVAL);
+
     addStandardElements("index")
 })
