@@ -1,0 +1,203 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Eventos - EcoSostenible</title>
+    <link rel="stylesheet" href="styles/styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+
+<body>
+    <!-- Contenido principal -->
+    <main>
+        <!-- Banner de eventos -->
+        <section class="page-banner">
+            <div class="container">
+                <div class="banner-content">
+                    <h1>Explora Nuestros Eventos</h1>
+                    <p>Descubre todos los eventos de sostenibilidad disponibles y encuentra el que mejor se adapte a tus
+                        intereses.</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Sección de filtros y listado -->
+        <section class="events-section">
+            <div class="container">
+                <!-- Filtros -->
+                <form id="filters-container">
+                    <div class="filter-group">
+                        <input type="text" placeholder="Buscar eventos..." id="search-input">
+                    </div>
+
+                    <div class="filter-row">
+                        <div class="filter-group">
+                            <label for="category">Categoría</label>
+                            <select id="category" class="filter-select">
+                                <option value="todas">Todas</option>
+                                <option value="conferencia">Conferencia</option>
+                                <option value="taller">Taller</option>
+                                <option value="seminario">Seminario</option>
+                                <option value="foro">Foro</option>
+                                <option value="actividad">Actividad</option>
+                                <option value="congreso">Congreso</option>
+                            </select>
+                        </div>
+
+                        <div class="filter-group filter-button-group">
+                            <button type="submit" class="btn btn-primary">Filtrar</button>
+                        </div>
+                    </div>
+                </form>
+
+                <!-- Contenido de las vistas -->
+                <div class="view-content">
+                    <!-- Vista de tarjetas (grid) -->
+                    <div id="events-grid" class="view-panel active">
+                        <!-- Evento 1 -->
+                        <a href="detalle_evento.html?id=1" class="event-card">
+                            <div class="event-image">
+                                <img src="https://placehold.co/500x300/e9f5e9/1a7a1a?text=Conferencia"
+                                    alt="Conferencia sobre Energías Renovables">
+                            </div>
+                            <div class="event-content">
+                                <div class="event-badges">
+                                    <span class="event-category">Conferencia</span>
+                                    <span class="event-featured">Destacado</span>
+                                </div>
+                                <h3 class="event-title">Conferencia sobre Energías Renovables</h3>
+                                <div class="event-details">
+                                    <p><i class="fas fa-calendar"></i> 15 de Junio, 2025</p>
+                                    <p><i class="fas fa-clock"></i> 10:00 - 14:00</p>
+                                    <p><i class="fas fa-map-marker-alt"></i> Centro de Convenciones Eco, Madrid</p>
+                                </div>
+                                <p class="event-description">Expertos internacionales presentan las últimas innovaciones
+                                    en energías renovables y su implementación en entornos urbanos.</p>
+                                <button class="btn btn-outline btn-full">Ver detalles</button>
+                            </div>
+                        </a>
+
+                        <!-- Evento 2 -->
+                        <a href="detalle_evento.html?id=2" class="event-card">
+                            <div class="event-image">
+                                <img src="https://placehold.co/500x300/e9f5e9/1a7a1a?text=Taller"
+                                    alt="Taller de Reciclaje Creativo">
+                            </div>
+                            <div class="event-content">
+                                <div class="event-badges">
+                                    <span class="event-category">Taller</span>
+                                </div>
+                                <h3 class="event-title">Taller de Reciclaje Creativo</h3>
+                                <div class="event-details">
+                                    <p><i class="fas fa-calendar"></i> 22 de Junio, 2025</p>
+                                    <p><i class="fas fa-clock"></i> 16:00 - 19:00</p>
+                                    <p><i class="fas fa-map-marker-alt"></i> Parque Tecnológico Ambiental, Barcelona</p>
+                                </div>
+                                <p class="event-description">Aprende técnicas innovadoras para dar una segunda vida a
+                                    materiales reciclados a través del arte y el diseño.</p>
+                                <button class="btn btn-outline btn-full">Ver detalles</button>
+                            </div>
+                        </a>
+
+                        <!-- Evento 3 -->
+                        <a href="detalle_evento.html?id=3" class="event-card">
+                            <div class="event-image">
+                                <img src="https://placehold.co/500x300/e9f5e9/1a7a1a?text=Seminario"
+                                    alt="Seminario Online: Huella de Carbono Empresarial">
+                            </div>
+                            <div class="event-content">
+                                <div class="event-badges">
+                                    <span class="event-category">Seminario</span>
+                                    <span class="event-featured">Destacado</span>
+                                </div>
+                                <h3 class="event-title">Seminario Online: Huella de Carbono Empresarial</h3>
+                                <div class="event-details">
+                                    <p><i class="fas fa-calendar"></i> 5 de Julio, 2025</p>
+                                    <p><i class="fas fa-clock"></i> 11:00 - 13:00</p>
+                                    <p><i class="fas fa-map-marker-alt"></i> Online</p>
+                                </div>
+                                <p class="event-description">Descubre cómo calcular y reducir la huella de carbono de tu
+                                    empresa con estrategias efectivas y sostenibles.</p>
+                                <button class="btn btn-outline btn-full">Ver detalles</button>
+                            </div>
+                        </a>
+
+                        <!-- Evento 4 -->
+                        <a href="detalle_evento.html?id=4" class="event-card">
+                            <div class="event-image">
+                                <img src="https://placehold.co/500x300/e9f5e9/1a7a1a?text=Foro"
+                                    alt="Foro de Agricultura Sostenible">
+                            </div>
+                            <div class="event-content">
+                                <div class="event-badges">
+                                    <span class="event-category">Foro</span>
+                                </div>
+                                <h3 class="event-title">Foro de Agricultura Sostenible</h3>
+                                <div class="event-details">
+                                    <p><i class="fas fa-calendar"></i> 18 de Julio, 2025</p>
+                                    <p><i class="fas fa-clock"></i> 09:00 - 18:00</p>
+                                    <p><i class="fas fa-map-marker-alt"></i> Finca Experimental Verde, Valencia</p>
+                                </div>
+                                <p class="event-description">Un día completo dedicado a las prácticas agrícolas
+                                    sostenibles, con demostraciones prácticas y mesas redondas.</p>
+                                <button class="btn btn-outline btn-full">Ver detalles</button>
+                            </div>
+                        </a>
+
+                        <!-- Evento 5 -->
+                        <a href="detalle_evento.html?id=5" class="event-card">
+                            <div class="event-image">
+                                <img src="https://placehold.co/500x300/e9f5e9/1a7a1a?text=Actividad"
+                                    alt="Jornada de Limpieza de Playas">
+                            </div>
+                            <div class="event-content">
+                                <div class="event-badges">
+                                    <span class="event-category">Actividad</span>
+                                    <span class="event-featured">Destacado</span>
+                                </div>
+                                <h3 class="event-title">Jornada de Limpieza de Playas</h3>
+                                <div class="event-details">
+                                    <p><i class="fas fa-calendar"></i> 1 de Agosto, 2025</p>
+                                    <p><i class="fas fa-clock"></i> 08:00 - 14:00</p>
+                                    <p><i class="fas fa-map-marker-alt"></i> Playa Las Conchas, Cádiz</p>
+                                </div>
+                                <p class="event-description">Únete a nuestra jornada de voluntariado para limpiar una de
+                                    las playas más emblemáticas del sur de España.</p>
+                                <button class="btn btn-outline btn-full">Ver detalles</button>
+                            </div>
+                        </a>
+
+                        <!-- Evento 6 -->
+                        <a href="detalle_evento.html?id=6" class="event-card">
+                            <div class="event-image">
+                                <img src="https://placehold.co/500x300/e9f5e9/1a7a1a?text=Congreso"
+                                    alt="Congreso de Movilidad Sostenible">
+                            </div>
+                            <div class="event-content">
+                                <div class="event-badges">
+                                    <span class="event-category">Congreso</span>
+                                </div>
+                                <h3 class="event-title">Congreso de Movilidad Sostenible</h3>
+                                <div class="event-details">
+                                    <p><i class="fas fa-calendar"></i> 15 de Agosto, 2025</p>
+                                    <p><i class="fas fa-clock"></i> 10:00 - 17:00</p>
+                                    <p><i class="fas fa-map-marker-alt"></i> Centro de Innovación Urbana, Bilbao</p>
+                                </div>
+                                <p class="event-description">Análisis de las tendencias en movilidad urbana sostenible y
+                                    presentación de casos de éxito internacionales.</p>
+                                <button class="btn btn-outline btn-full">Ver detalles</button>
+                            </div>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <script src="scripts/main.js"></script>
+    <script src="scripts/eventos.js"></script>
+</body>
+
+</html>
