@@ -1,75 +1,70 @@
-CREATE DATABASE IF NOT EXISTS eventos_sostenibles;
-USE eventos_sostenibles;
+CREATE DATABASE IF NOT EXISTS eventossostenibles;
+USE eventossostenibles;
 
--- Tabla Usuario
-CREATE TABLE IF NOT EXISTS Usuario (
-    id_usuario SERIAL PRIMARY KEY,
-    nombre VARCHAR(50) NOT NULL,
-    correo VARCHAR(255) NOT NULL UNIQUE CHECK (correo LIKE '%_@__%.__%'),
-    contraseña VARCHAR(255) NOT NULL,
-    tipo ENUM('organizador', 'usuario', 'admin') NOT NULL DEFAULT 'usuario'
+-- User Table
+CREATE TABLE IF NOT EXISTS User (
+    user_id SERIAL PRIMARY KEY,
+    name VARCHAR(50) NOT NULL,
+    email VARCHAR(255) NOT NULL UNIQUE,
+    password VARCHAR(255) NOT NULL,
+    role ENUM('organizer', 'user', 'admin') NOT NULL DEFAULT 'user'
 );
 
--- Tabla Organizador
-CREATE TABLE IF NOT EXISTS Organizador (
-    id_usuario BIGINT UNSIGNED PRIMARY KEY,
-    telefono CHAR(9) NOT NULL CHECK (telefono REGEXP '^[6-8][0-9]{8}$'),
-    empresa VARCHAR(255) NOT NULL,
-    web VARCHAR(255),
-    FOREIGN KEY (id_usuario) REFERENCES Usuario(id_usuario)
+-- Organizer Table
+CREATE TABLE IF NOT EXISTS Organizer (
+    user_id BIGINT UNSIGNED PRIMARY KEY,
+    phone CHAR(9) NOT NULL,
+    company VARCHAR(255) NOT NULL,
+    website VARCHAR(255),
+    FOREIGN KEY (user_id) REFERENCES User(user_id)
 );
 
--- Tabla Ubicacion
-CREATE TABLE IF NOT EXISTS Ubicacion (
-    id_ubicacion SERIAL PRIMARY KEY,
-    tipo ENUM('presencial', 'virtual', 'mixto') NOT NULL,
-    direccion VARCHAR(255),
-    url VARCHAR(255),
-    CHECK (
-        (direccion IS NOT NULL AND url IS NULL AND tipo = 'presencial') OR 
-        (direccion IS NULL AND url IS NOT NULL AND tipo = 'virtual') OR
-        (direccion IS NOT NULL AND url IS NOT NULL AND tipo = 'mixto')
-    )
+-- Location Table
+CREATE TABLE IF NOT EXISTS Location (
+    location_id SERIAL PRIMARY KEY,
+    type ENUM('onsite', 'virtual', 'hybrid') NOT NULL,
+    address VARCHAR(255),
+    url VARCHAR(255)
 );
 
--- Tabla Categoria
-CREATE TABLE IF NOT EXISTS Categoria (
-    id_categoria SERIAL PRIMARY KEY,
-    nombre VARCHAR(255) NOT NULL,
-    descripcion VARCHAR(255)
+-- Category Table
+CREATE TABLE IF NOT EXISTS Category (
+    category_id SERIAL PRIMARY KEY,
+    name VARCHAR(255) NOT NULL,
+    description VARCHAR(255)
 );
 
--- Tabla Evento con imagen y precio
-CREATE TABLE IF NOT EXISTS Evento (
-    id_evento SERIAL PRIMARY KEY,
-    nombre VARCHAR(100) NOT NULL,
-    fecha DATETIME NOT NULL,
-    duracion INT NOT NULL,
-    aforo INT,
-    imagen VARCHAR(255), -- URL o ruta de la imagen
-    precio DECIMAL(10,2) DEFAULT 0.00, -- precio del evento
-    id_ubicacion BIGINT UNSIGNED NOT NULL,
-    id_categoria BIGINT UNSIGNED NOT NULL,
-    estado ENUM('activo', 'finalizado', 'cancelado') DEFAULT 'activo',
-    FOREIGN KEY (id_ubicacion) REFERENCES Ubicacion(id_ubicacion),
-    FOREIGN KEY (id_categoria) REFERENCES Categoria(id_categoria)
+-- Event Table with image and price
+CREATE TABLE IF NOT EXISTS Event (
+    event_id SERIAL PRIMARY KEY,
+    name VARCHAR(100) NOT NULL,
+    date DATETIME NOT NULL,
+    duration INT NOT NULL,
+    capacity INT,
+    image VARCHAR(255),
+    price DECIMAL(10,2) DEFAULT 0.00,
+    location_id BIGINT UNSIGNED NOT NULL,
+    category_id BIGINT UNSIGNED NOT NULL,
+    status ENUM('active', 'finished', 'cancelled') DEFAULT 'active',
+    FOREIGN KEY (location_id) REFERENCES Location(location_id),
+    FOREIGN KEY (category_id) REFERENCES Category(category_id)
 );
 
--- Tabla intermedia Evento_Organizador para relación muchos a muchos
-CREATE TABLE IF NOT EXISTS Evento_Organizador (
-    id_evento BIGINT UNSIGNED NOT NULL,
-    id_usuario BIGINT UNSIGNED NOT NULL,
-    PRIMARY KEY (id_evento, id_usuario),
-    FOREIGN KEY (id_evento) REFERENCES Evento(id_evento),
-    FOREIGN KEY (id_usuario) REFERENCES Usuario(id_usuario)
+-- Event_Organizer intermediate table for many-to-many relationship
+CREATE TABLE IF NOT EXISTS Event_Organizer (
+    event_id BIGINT UNSIGNED NOT NULL,
+    user_id BIGINT UNSIGNED NOT NULL,
+    PRIMARY KEY (event_id, user_id),
+    FOREIGN KEY (event_id) REFERENCES Event(event_id),
+    FOREIGN KEY (user_id) REFERENCES User(user_id)
 );
 
--- Tabla Inscripcion
-CREATE TABLE IF NOT EXISTS Inscripcion (
-    id_inscripcion SERIAL PRIMARY KEY,
-    id_evento BIGINT UNSIGNED NOT NULL,
-    id_usuario BIGINT UNSIGNED NOT NULL,
-    UNIQUE (id_evento, id_usuario),
-    FOREIGN KEY (id_evento) REFERENCES Evento(id_evento),
-    FOREIGN KEY (id_usuario) REFERENCES Usuario(id_usuario)
+-- Registration Table
+CREATE TABLE IF NOT EXISTS Registration (
+    registration_id SERIAL PRIMARY KEY,
+    event_id BIGINT UNSIGNED NOT NULL,
+    user_id BIGINT UNSIGNED NOT NULL,
+    UNIQUE (event_id, user_id),
+    FOREIGN KEY (event_id) REFERENCES Event(event_id),
+    FOREIGN KEY (user_id) REFERENCES User(user_id)
 );
