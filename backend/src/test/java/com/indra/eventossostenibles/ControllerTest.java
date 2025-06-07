@@ -20,11 +20,10 @@ public class ControllerTest {
     void setUp() {
         controller = new Controller();
         user = new User(1L, "Alice", "alice@example.com", "USER", "1234567890", "Company", "www.example.com");
-        event = new Event(10L, "Conference", Date.valueOf("2025-01-01"), 8, 100,
-                "img.png", 49.99f,
-                new Location(5L, "Indoor", "Hall A", ""),
-                "Business", "Scheduled");
-        inscription = new Inscription(100L, user.id(), event.id(), "PENDING");
+        event = new PresencialEvent(10L, "Conference", Date.valueOf("2025-01-01"), 8, 100,
+                "img.png", 49.99f, "Business", "Scheduled",
+                new Location(5L, "Indoor", "Hall A", ""));
+        inscription = new Inscription(100L, user.id(), event.getId(), "PENDING");
     }
 
     @Test
@@ -73,11 +72,11 @@ public class ControllerTest {
     void testUpdateEvent() {
         assertFalse(controller.updateEvent(event));
         controller.addEvent(event);
-        Event updated = new Event(event.id(), "Conf2025", event.date(), event.duration(), event.capacity(), event.image(), event.precio(), event.location(), event.category(), event.status());
+        Event updated = new PresencialEvent(event.getId(), "Conf2025", event.getDate(), event.getDuration(), event.getCapacity(), event.getImage(), event.getPrecio(), event.getCategory(), event.getStatus(), ((PresencialEvent)event).getLocation());
         assertTrue(controller.updateEvent(updated));
-        assertEquals("Conf2025", controller.findEventById(event.id()).get().name());
+        assertEquals("Conf2025", controller.findEventById(event.getId()).get().getName());
         assertFalse(controller.updateEvent(null));
-        assertFalse(controller.updateEvent(new Event(999L, "X", event.date(), 1, 1, "", 0f, event.location(), "", "")));
+        assertFalse(controller.updateEvent(new PresencialEvent(999L, "X", event.getDate(), 1, 1, "", 0f, "", "", ((PresencialEvent)event).getLocation())));
     }
 
     @Test
@@ -99,10 +98,10 @@ public class ControllerTest {
     void testRemoveUserEventInscription() {
         controller.addUser(user);
         controller.addEvent(event);
-        controller.addInscription(new Inscription(101L, user.id(), event.id(), "PENDING"));
+        controller.addInscription(new Inscription(101L, user.id(), event.getId(), "PENDING"));
         assertTrue(controller.removeUser(user));
         assertTrue(controller.removeEvent(event));
-        assertTrue(controller.removeInscription(new Inscription(101L, user.id(), event.id(), "PENDING")));
+        assertTrue(controller.removeInscription(new Inscription(101L, user.id(), event.getId(), "PENDING")));
         assertFalse(controller.removeUser(user));
         assertFalse(controller.removeEvent(event));
         assertFalse(controller.removeInscription(inscription));
@@ -130,7 +129,7 @@ public class ControllerTest {
         controller.addUser(user);
         controller.addEvent(event);
         assertTrue(controller.findUserById(user.id()).isPresent());
-        assertTrue(controller.findEventById(event.id()).isPresent());
+        assertTrue(controller.findEventById(event.getId()).isPresent());
         assertFalse(controller.findUserById(999L).isPresent());
         assertFalse(controller.findEventById(999L).isPresent());
     }
@@ -143,12 +142,13 @@ public class ControllerTest {
         controller.addInscription(inscription);
         Inscription other = new Inscription(101L, 2L, 20L, "CONFIRMED");
         controller.addUser(new User(2L, "Bob", "bob@example.com", "USER", "000", "C", "w"));
-        controller.addEvent(new Event(20L, "Other", Date.valueOf("2025-02-01"), 2, 10, "img2.png", 10f, new Location(6L, "Outdoor", "Hall B", ""), "Leisure", "Scheduled"));
+        Event otherEvent = new PresencialEvent(20L, "Other", Date.valueOf("2025-02-01"), 2, 10, "img2.png", 10f, "Leisure", "Scheduled", new Location(6L, "Outdoor", "Hall B", ""));
+        controller.addEvent(otherEvent);
         controller.addInscription(other);
         assertEquals(1, controller.getInscriptionsByUser(user.id()).size());
         assertEquals(inscription, controller.getInscriptionsByUser(user.id()).get(0));
-        assertEquals(1, controller.getInscriptionsByEvent(event.id()).size());
-        assertEquals(inscription, controller.getInscriptionsByEvent(event.id()).get(0));
+        assertEquals(1, controller.getInscriptionsByEvent(event.getId()).size());
+        assertEquals(inscription, controller.getInscriptionsByEvent(event.getId()).get(0));
     }
 
     @Test
@@ -163,7 +163,72 @@ public class ControllerTest {
     @DisplayName("findEventByName: finds only existing events by name")
     void testFindEventByName() {
         controller.addEvent(event);
-        assertTrue(controller.findEventByName(event.name()).isPresent());
+        assertTrue(controller.findEventByName(event.getName()).isPresent());
         assertFalse(controller.findEventByName("NoEvent").isPresent());
+    }
+
+    @Test
+    @DisplayName("OnlineEvent: getters and setters")
+    void testOnlineEventGettersSetters() {
+        String url = "https://example.com";
+        OnlineEvent onlineEvent = new OnlineEvent(2L, "Webinar", Date.valueOf("2025-03-01"), 2, 50, "img2.png", 0f, "Tech", "Active", url);
+        assertEquals(2L, onlineEvent.getId());
+        assertEquals("Webinar", onlineEvent.getName());
+        assertEquals(Date.valueOf("2025-03-01"), onlineEvent.getDate());
+        assertEquals(2, onlineEvent.getDuration());
+        assertEquals(50, onlineEvent.getCapacity());
+        assertEquals("img2.png", onlineEvent.getImage());
+        assertEquals(0f, onlineEvent.getPrecio());
+        assertEquals("Tech", onlineEvent.getCategory());
+        assertEquals("Active", onlineEvent.getStatus());
+        assertEquals(url, onlineEvent.getUrl());
+        onlineEvent.setUrl("https://newurl.com");
+        assertEquals("https://newurl.com", onlineEvent.getUrl());
+    }
+
+    @Test
+    @DisplayName("PresencialEvent: getters and setters")
+    void testPresencialEventGettersSetters() {
+        Location loc = new Location(7L, "Indoor", "Room 101", "");
+        PresencialEvent presencialEvent = new PresencialEvent(3L, "Taller", Date.valueOf("2025-04-01"), 3, 30, "img3.png", 10f, "Workshop", "Active", loc);
+        assertEquals(3L, presencialEvent.getId());
+        assertEquals("Taller", presencialEvent.getName());
+        assertEquals(Date.valueOf("2025-04-01"), presencialEvent.getDate());
+        assertEquals(3, presencialEvent.getDuration());
+        assertEquals(30, presencialEvent.getCapacity());
+        assertEquals("img3.png", presencialEvent.getImage());
+        assertEquals(10f, presencialEvent.getPrecio());
+        assertEquals("Workshop", presencialEvent.getCategory());
+        assertEquals("Active", presencialEvent.getStatus());
+        assertEquals(loc, presencialEvent.getLocation());
+        Location newLoc = new Location(8L, "Outdoor", "Patio", "");
+        presencialEvent.setLocation(newLoc);
+        assertEquals(newLoc, presencialEvent.getLocation());
+    }
+
+    @Test
+    @DisplayName("Event: setters and getters for all fields")
+    void testEventSettersAndGetters() {
+        // Use PresencialEvent for testing setters/getters of abstract class
+        Location loc = new Location(9L, "Indoor", "Sala A", "");
+        PresencialEvent event = new PresencialEvent(4L, "Evento", Date.valueOf("2025-05-01"), 4, 40, "img4.png", 20f, "Seminar", "Planned", loc);
+        event.setId(5L);
+        event.setName("Nuevo Evento");
+        event.setDate(Date.valueOf("2025-06-01"));
+        event.setDuration(5);
+        event.setCapacity(60);
+        event.setImage("img5.png");
+        event.setPrecio(30f);
+        event.setCategory("UpdatedCat");
+        event.setStatus("Done");
+        assertEquals(5L, event.getId());
+        assertEquals("Nuevo Evento", event.getName());
+        assertEquals(Date.valueOf("2025-06-01"), event.getDate());
+        assertEquals(5, event.getDuration());
+        assertEquals(60, event.getCapacity());
+        assertEquals("img5.png", event.getImage());
+        assertEquals(30f, event.getPrecio());
+        assertEquals("UpdatedCat", event.getCategory());
+        assertEquals("Done", event.getStatus());
     }
 }

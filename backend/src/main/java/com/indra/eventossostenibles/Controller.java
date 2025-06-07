@@ -59,7 +59,7 @@ public class Controller {
         if (inscriptions.contains(inscription)) return false;
         // Check that user and event exist for inscription
         boolean userExists = users.stream().anyMatch(u -> u.id() == inscription.userId());
-        boolean eventExists = events.stream().anyMatch(e -> e.id() == inscription.eventId());
+        boolean eventExists = events.stream().anyMatch(e -> e.getId() == inscription.eventId());
         if (!userExists || !eventExists) return false;
         return inscriptions.add(inscription);
     }
@@ -94,7 +94,7 @@ public class Controller {
         if (event == null) return false;
         int id = -1;
         for (int i = 0; i < events.size(); i++) {
-            if (events.get(i).id() == event.id()) {
+            if (events.get(i).getId() == event.getId()) {
                 id = i;
                 break;
             }
@@ -190,7 +190,7 @@ public class Controller {
      * @return Optional containing event if found
      */
     public Optional<Event> findEventById(long id) {
-        return events.stream().filter(e -> e.id() == id).findFirst();
+        return events.stream().filter(e -> e.getId() == id).findFirst();
     }
 
     /**
@@ -230,6 +230,6 @@ public class Controller {
      * @return Optional containing event if found
      */
     public Optional<Event> findEventByName(String name) {
-        return events.stream().filter(e -> e.name().equalsIgnoreCase(name)).findFirst();
+        return events.stream().filter(e -> e.getName().equalsIgnoreCase(name)).findFirst();
     }
 }
