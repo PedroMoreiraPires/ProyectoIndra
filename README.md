@@ -13,12 +13,14 @@
 - **.gitignore**: Configurado para ignorar carpetas de build, IDEs y archivos temporales.  
 - **src/main/java/com/indra/eventossostenibles/**  
     - `Controller.java`: Lógica principal para CRUD, gestión en memoria y mucho más. 🚀  
-    - `Event.java`: Modelo del evento (*record* en Java).  
+    - `Event.java`: Clase abstracta base para eventos.  
+    - `OnlineEvent.java`: Evento online (hereda de Event).  
+    - `PresencialEvent.java`: Evento presencial (hereda de Event).  
     - `Inscription.java`: Modelo para inscripción en eventos.  
     - `Location.java`: Modelo de localización de eventos.  
     - `User.java`: Modelo del usuario.  
 - **src/test/java/com/indra/eventossostenibles/**  
-    - `ControllerTest.java`: Pruebas unitarias con JUnit para validar toda la lógica del controlador.  
+    - `ControllerTest.java`: Pruebas unitarias con JUnit para validar toda la lógica del controlador y los modelos de eventos.  
 - **target/**: Carpeta con archivos compilados y clases generadas por Maven.
 
 ### 2. html/  
@@ -102,8 +104,11 @@ Ejecuta las pruebas unitarias ubicadas en `backend/src/test/java/com/indra/event
 
 ### Backend
 - **Controller.java**: Gestiona usuarios, eventos e inscripciones en memoria. Incluye métodos CRUD, búsquedas y validaciones.
-- **Event.java, User.java, Inscription.java, Location.java**: Modelos de datos usando *records* para mayor claridad y concisión.
-- **ControllerTest.java**: Asegura la robustez del controlador mediante pruebas unitarias exhaustivas.
+- **Event.java**: Clase abstracta base para eventos.
+- **OnlineEvent.java**: Evento online, añade el campo `url`.
+- **PresencialEvent.java**: Evento presencial, añade el campo `location`.
+- **User.java, Inscription.java, Location.java**: Modelos de datos usando records para mayor claridad y concisión.
+- **ControllerTest.java**: Pruebas unitarias exhaustivas para toda la lógica del controlador y los modelos de eventos.
 
 ### Frontend
 - **index.html, eventos.html, detalle_evento.html**: Páginas clave para la navegación e interacción del portal.
